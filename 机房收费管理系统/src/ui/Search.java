@@ -169,6 +169,10 @@ public class Search extends JDialog {
 		contentPanel.setLayout(gl_contentPanel);
 	}
 	public void sousuo1() {
+		if(textField.getText().length()==0){
+			JOptionPane.showMessageDialog(null, "输入框不能为空");
+			return;
+		}
 		Dao dao = new Dao();
 		int index=comboBox.getSelectedIndex();
 		String s3=textField.getText();
@@ -183,6 +187,10 @@ public class Search extends JDialog {
 		}
 	}
 	public void sousuo2() {
+		if(textField_1.getText().length()==0){
+			JOptionPane.showMessageDialog(null, "输入框不能为空");
+			return;
+		}
 		Dao dao = new Dao();
 		int index=comboBox_1.getSelectedIndex();
 		String s3=textField_1.getText();

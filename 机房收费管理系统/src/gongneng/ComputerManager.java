@@ -7,7 +7,7 @@ import java.util.List;
 import xinxi.Computer;
 
 public class ComputerManager {
-	//获取所有的计算机信息
+	//把计算机信息列表进行转换
 	public Object[][] list(List list) {	
 		Object[][] s = new Object[list.size()][3];
 		System.out.println("计算机列表如下：");
@@ -22,10 +22,10 @@ public class ComputerManager {
 		return s;
 	}
 	
-	//获取计算机编号
+	//把空闲状态的计算机列表进行转换
 	public String[] id_list(List list) {
 		String ss = "";	
-		System.out.println("编号列表：");
+		System.out.println("可用计算机列表：");
 		for(int i = 0; i < list.size(); i++) {
 			Computer computer = (Computer) list.get(i);
 			System.out.println("计算机编号："+computer.getComputer_id());

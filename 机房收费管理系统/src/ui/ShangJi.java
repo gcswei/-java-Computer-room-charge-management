@@ -10,7 +10,9 @@ import javax.swing.border.EmptyBorder;
 
 import dao.Dao;
 import gongneng.ComputerManager;
+import gongneng.ExpenseManage;
 import xinxi.Computer;
+import xinxi.Expense_info;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -40,10 +42,14 @@ public class ShangJi extends JDialog {
 			//获取数据库中已有的计算机编号
 	Dao dao = new Dao();
 	ComputerManager computerManager = new ComputerManager();
-	List<Computer> list = dao.getAllComputers();
+	List<Computer> list = dao.getAllComputers(2);			//传入参数2，获取所有处于空闲状态的计算机
 	String[] ss=computerManager.id_list(list);				//编号的String数组
-//	SimpleDateFormat myfmt=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");	//获取当前时间
-	SimpleDateFormat myfmt=new SimpleDateFormat("hh:mm:ss");	//获取当前时间
+	ExpenseManage expenseManage = new ExpenseManage();
+	List<Expense_info> list2 = dao.getAllOnline();
+	String[] snolist = expenseManage.online_sno(list2);
+	String[] namelist = expenseManage.online_name(list2);
+//	SimpleDateFormat myfmt=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	SimpleDateFormat myfmt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	//设置日期格式   HH:mm:ss中的HH大写为24小时制。HH和hh的差别是前者为24小时制，后者为12小时制
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +67,7 @@ public class ShangJi extends JDialog {
 	 */
 	public ShangJi() {
 		setModal(true);
-		setBounds(1200, 450, 570, 355);
+		setBounds(1000, 450, 570, 355);
 		setTitle("学生上机");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
@@ -171,7 +177,10 @@ public class ShangJi extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						if(comboBox.getSelectedItem()==""){
+							JOptionPane.showMessageDialog(null, "当前没有空闲的机子");
+							return;
+						}
 						if(textField.getText().length()==0){
 							JOptionPane.showMessageDialog(null, "学号不能为空");
 							return;
@@ -180,10 +189,25 @@ public class ShangJi extends JDialog {
 							JOptionPane.showMessageDialog(null, "学号需要是10位数\n   当前位数："+(textField.getText().length())+"位");
 							return;
 						}
+						for(int a = 0; a < snolist.length; a++) {
+							String aa=snolist[a];
+							if(textField.getText().equals(aa)){
+								JOptionPane.showMessageDialog(null, "该学生正在上机中，请勿重复录入！");
+								return;
+							}
+						}
+						for(int b = 0; b < namelist.length; b++) {
+							String bb=namelist[b];
+							if(textField_1.getText().equals(bb)){
+								JOptionPane.showMessageDialog(null, "该学生正在上机中，请勿重复录入！");
+								return;
+							}
+						}
 						if(textField_1.getText().length()==0){
 							JOptionPane.showMessageDialog(null, "姓名不能为空");
 							return;
 						}
+						
 						if(textField_2.getText().length()==0){
 							JOptionPane.showMessageDialog(null, "班级不能为空");
 							return;
@@ -194,11 +218,12 @@ public class ShangJi extends JDialog {
 						String sclass=textField_2.getText();		//班级
 						String starttime=String.valueOf(myfmt.format(new java.util.Date()));		//开始时间
 						int i=dao.addExpense(bianhao, xuehao, name, sclass, starttime);
-						if(i==1){
-							JOptionPane.showMessageDialog(null, "添加成功");
+						int i2=dao.modifyComputeStater(bianhao,2);
+						if(i==1&&i2==1){
+							JOptionPane.showMessageDialog(null, "上机成功");
 							ii=1;
 						}else {
-							JOptionPane.showMessageDialog(null, "添加失败");
+							JOptionPane.showMessageDialog(null, "出现错误！");
 						}
 					}
 				});
@@ -220,14 +245,5 @@ public class ShangJi extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-	}
-	private void getTime() {
-		Dao dao = new Dao();
-//		int index=comboBox.getSelectedIndex();
-//		String s3=textField.getText();
-		ComputerManager computerManager = new ComputerManager();
-		List<Computer> list = dao.getAllComputers();
-		String[] ss=computerManager.id_list(list);				//各行的数据
-		System.out.println("hh"+ss);
 	}
 }
