@@ -22,22 +22,9 @@ public class MySqlUtils {
 		*/
 		try {
 			// 1.注册驱动
-			Class.forName("com.mysql.jdbc.Driver");
-			//Class.forName("oracle.jdbc.driver.OracleDriver"); 
+			Class.forName("com.mysql.jdbc.Driver"); 
 			// 2.获取连接
 			con = DriverManager.getConnection(url, user, password);
-			/*
-			stmt = con.createStatement();
-			String sql = "select * from computer_info";
-			rs = stmt.executeQuery(sql);
-			System.out.println("computer_id  |	computer_system	|	state");
-			while (rs.next()) {
-				int id = rs.getInt("computer_id");
-				String systemname = rs.getString("computer_system");
-				String state = rs.getString("state");
-				System.out.println(id +"   |   " + systemname +" 		|	" + state);
-			}
-			*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();

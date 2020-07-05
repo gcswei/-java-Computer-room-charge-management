@@ -14,36 +14,6 @@ import xinxi.Computer;
 import xinxi.Expense_info;
 
 public class Dao {
-
-	/**
-	 * 根据id名判定计算机是否已存在
-	 */
-	public boolean judgeExist(String targetName){
-	Connection conn = null; 
-	PreparedStatement stmt = null;	
-	ResultSet rs = null;
-	int count = 0;
-	try {
-		conn = MySqlUtils.getConn();
-		String sql = "select count(*) as count from computer_info where computer_id = ?";
-		stmt = conn.prepareStatement(sql);
-		stmt.setString(1, targetName);
-		rs = stmt.executeQuery();
-		while(rs.next()){
-			count = rs.getInt("count");
-		}
-	} 
-	catch (SQLException e) {
-		e.printStackTrace();
-	}
-	finally{
-		MySqlUtils.closeConn(conn, stmt, rs);
-	}
-	if(count==0) return false;
-	else
-		return true;
-   }
-	
 	
 	/**
 	 * 获取计算机基本信息列表
@@ -386,7 +356,7 @@ public class Dao {
 	}
 	
 	/**
-	 * 删除
+	 * 删除计算机
 	 */
 	public int deleteComputer(int id){
 		Connection conn = null; 

@@ -72,7 +72,5 @@ public class Expense_info {
 	}
 	public void setExpense(float expense) {
 		this.expense = expense;
-	}
-
-	
+	}	
 }

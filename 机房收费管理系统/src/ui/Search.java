@@ -41,21 +41,8 @@ public class Search extends JDialog {
 	private JComboBox comboBox_1;
 	public int i=0;
 	public int ssoul=0;
-	//定义全局变量
+	//定义全局变量，存储查询到的结果
 	Object[][] ss;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Search dialog = new Search();
-			dialog.addWindowListener(new WindowEventHandler());
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.

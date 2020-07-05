@@ -48,19 +48,7 @@ public class ShangJi extends JDialog {
 	List<Expense_info> list2 = dao.getAllOnline();
 	String[] snolist = expenseManage.online_sno(list2);
 	String[] namelist = expenseManage.online_name(list2);
-//	SimpleDateFormat myfmt=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	SimpleDateFormat myfmt=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	//设置日期格式   HH:mm:ss中的HH大写为24小时制。HH和hh的差别是前者为24小时制，后者为12小时制
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			ShangJi dialog = new ShangJi();
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.

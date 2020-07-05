@@ -29,19 +29,7 @@ public class InsertComputer extends JDialog {
 	private JPanel buttonPane;
 	
 	Dao dao = new Dao();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			InsertComputer dialog = new InsertComputer();
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	public void Insert() {
 		InsertComputer dialog = new InsertComputer();
 		dialog.setVisible(true);
@@ -138,7 +126,7 @@ public class InsertComputer extends JDialog {
 						Object selectedItem2 = comboBox_1.getSelectedItem();
 						int i=dao.addComputer(bianhao, selectedItem1, selectedItem2);
 						if(i==1){
-						JOptionPane.showMessageDialog(null, "添加成功");
+							JOptionPane.showMessageDialog(null, "添加成功");
 						}else {
 							JOptionPane.showMessageDialog(null, "添加失败,计算机编号重复！");
 						}
